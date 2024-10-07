@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ section.section_type|capfirst }} Section - Level {{ section.level.level_number }}</title>
+</head>
+<body>
+    <h1>{{ section.section_type|capfirst }} Section - Level {{ section.level.level_number }}</h1>
+
+    {% if exercises %}
+        <ul>
+            {% for exercise in exercises %}
+                <li>
+                    <p>{{ exercise.question_text }}</p>
+                    <form method="post" action="{% url 'exercise_detail' section.id exercise.id %}">
+                        {% csrf_token %}
+                        {% for choice in exercise.answer_choices %}
+                            <input type="radio" name="answer" value="{{ choice }}">
+                            <label>{{ choice }}</label><br>
+                        {% endfor %}
+                        <button type="submit">Submit</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No exercises available for this section.</p>
+    {% endif %}
+
+    <footer>
+        <p>Good luck with your exercises!</p>
+    </footer>
+</body>
+</html>
+

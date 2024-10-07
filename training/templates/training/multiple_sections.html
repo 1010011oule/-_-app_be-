@@ -1,0 +1,22 @@
+<!-- training/templates/training/multiple_sections.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Sections Found</title>
+</head>
+<body>
+    <h1>Multiple Sections Found for {{ sections.first.level.level_number }} - {{ sections.first.section_type }}</h1>
+    <ul>
+        {% for section in sections %}
+            <li>
+                <a href="{% url 'section_detail' section.level.level_number section.section_type %}">
+                    Section {{ section.section_type|capfirst }} for Level {{ section.level.level_number }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+

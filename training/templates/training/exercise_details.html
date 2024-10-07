@@ -1,0 +1,39 @@
+<!-- training/templates/training/exercise_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ exercise.section.section_type.capitalize() }} Exercise</title>
+</head>
+<body>
+    <h1>{{ exercise.section.section_type.capitalize() }} Exercise</h1>
+    <p>{{ exercise.question_text }}</p>
+
+    <!-- Display feedback if the user has submitted an answer -->
+    {% if submitted %}
+        {% if is_correct %}
+            <p>Correct! Well done!</p>
+        {% else %}
+            <p>Incorrect. Try again.</p>
+        {% endif %}
+    {% endif %}
+
+    <!-- Exercise submission form -->
+    <form method="POST">
+        {% csrf_token %}
+        <label for="answer">Your Answer:</label>
+        <input type="text" name="answer" id="answer">
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- If this is a listening exercise, include audio playback -->
+    {% if exercise.audio_url %}
+        <audio controls>
+            <source src="{{ exercise.audio_url }}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    {% endif %}
+</body>
+</html>
+

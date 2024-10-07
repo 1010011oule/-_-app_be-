@@ -1,0 +1,27 @@
+<!-- training/templates/training/level_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Levels</title>
+</head>
+<body>
+    <h1>Available Levels</h1>
+    <ul>
+        {% for level in levels %}
+            <li>
+                <!-- Create links to the level's reading and listening sections -->
+                <a href="{% url 'section_detail' level_number=level.level_number section_type='reading' %}">
+                    Reading Section for Level {{ level.level_number }}
+                </a>
+                <br>
+                <a href="{% url 'section_detail' level_number=level.level_number section_type='listening' %}">
+                    Listening Section for Level {{ level.level_number }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
